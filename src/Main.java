@@ -63,6 +63,27 @@ public class Main {
         return values_of_distribution_func;
     }
 
+    public static int find_left_bound_index(double x, double[] sorted_input_unique_array){
+        int left = 0;
+        int right = sorted_input_unique_array.length - 1;
+        int middle = (left + right) / 2;
+        if(x == sorted_input_unique_array[sorted_input_unique_array.length - 1]){
+            return right;
+        }
+        boolean found = false;
+        while (!found && right >= left){
+            middle = (left + right) / 2;
+            if(sorted_input_unique_array[middle] <= x && sorted_input_unique_array[middle+1] > x){
+                found = true;
+            }else if (sorted_input_unique_array[middle] > x){
+                right = middle - 1;
+            }else if(sorted_input_unique_array[middle + 1] <= x){
+                left = middle + 1;
+            }
+        }
+        return middle;
+    }
+
     public static double distribution_function(double x, double[] sorted_input_unique_array, double[] values_of_distribution_func) {
         if(x < sorted_input_unique_array[0]){
             return 0.0;
@@ -70,7 +91,7 @@ public class Main {
         if(x > sorted_input_unique_array[sorted_input_unique_array.length - 1]){
             return 1.0;
         }
-        int left_bound = 0;
+       /* int left_bound = 0;
         int right_bound = sorted_input_unique_array.length - 1;
         int position = sorted_input_unique_array.length / 2;
         do {
@@ -85,8 +106,8 @@ public class Main {
                 left_bound = position;
                 position = (int) Math.ceil((right_bound + left_bound) / 2.0);
             }
-        } while (!(x > sorted_input_unique_array[position] && x < sorted_input_unique_array[position + 1]));
-        return values_of_distribution_func[position];
+        } while (!(x > sorted_input_unique_array[position] && x < sorted_input_unique_array[position + 1]));*/
+        return values_of_distribution_func[find_left_bound_index(x, sorted_input_unique_array)];
     }
 
     public static void main(String[] args) {
@@ -101,7 +122,7 @@ public class Main {
         // Arrays.stream(distribution_func(input_array, n)).forEach(System.out::println);
         //Arrays.stream(distribution_func_array(input_array, number_distribution_map(input_array, n))).forEach(System.out::println);
        // Arrays.stream(distribution_func_array(input_array, number_distribution_map(input_array, n))).forEach(System.out::println);
-        double x = 3.99;
+        double x = 4.1;
         System.out.print(distribution_function(x, sorted_unique_array(input_array),distribution_func_array(input_array, number_distribution_map(input_array, n))));
     }
 }
