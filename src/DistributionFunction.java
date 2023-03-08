@@ -13,17 +13,18 @@ public class DistributionFunction {
         init_array_of_values_of_distribution_function();
     }
 
-    private void init_array_of_input_numbers(Double[] array_of_input_numbers){
+    private void init_array_of_input_numbers(Double[] array_of_input_numbers) {
         this.array_of_input_numbers = new Double[array_of_input_numbers.length];
         System.arraycopy(array_of_input_numbers, 0, this.array_of_input_numbers, 0, array_of_input_numbers.length);
     }
 
-    private void init_array_of_unique_sorted_input_numbers(){
+    private void init_array_of_unique_sorted_input_numbers() {
         Set<Double> temp_set_of_input_numbers = new HashSet<>(Arrays.asList(array_of_input_numbers));
         this.array_of_unique_sorted_input_numbers = new Double[temp_set_of_input_numbers.size()];
         temp_set_of_input_numbers.toArray(this.array_of_unique_sorted_input_numbers);
         Arrays.sort(this.array_of_unique_sorted_input_numbers);
     }
+
     private void init_map_of_number_repetition() {
         this.map_of_number_repetition = new HashMap<>();
         for (int i = 0; i < this.array_of_input_numbers.length; i++) {
@@ -46,21 +47,21 @@ public class DistributionFunction {
         }
     }
 
-    private int find_left_bound_index(Double x){
+    private int find_left_bound_index(Double x) {
         int left = 0;
         int right = this.array_of_unique_sorted_input_numbers.length - 1;
         int middle = (left + right) / 2;
-        if(x.compareTo(this.array_of_unique_sorted_input_numbers[this.array_of_unique_sorted_input_numbers.length - 1]) == 0){
+        if (x.compareTo(this.array_of_unique_sorted_input_numbers[this.array_of_unique_sorted_input_numbers.length - 1]) == 0) {
             return right;
         }
         boolean found = false;
-        while (!found && right >= left){
+        while (!found && right >= left) {
             middle = (left + right) / 2;
-            if(this.array_of_unique_sorted_input_numbers[middle].compareTo(x) <= 0 && this.array_of_unique_sorted_input_numbers[middle+1].compareTo(x) > 0){
+            if (this.array_of_unique_sorted_input_numbers[middle].compareTo(x) <= 0 && this.array_of_unique_sorted_input_numbers[middle + 1].compareTo(x) > 0) {
                 found = true;
-            }else if (this.array_of_unique_sorted_input_numbers[middle].compareTo(x) > 0){
+            } else if (this.array_of_unique_sorted_input_numbers[middle].compareTo(x) > 0) {
                 right = middle - 1;
-            }else if(this.array_of_unique_sorted_input_numbers[middle + 1].compareTo(x) <= 0){
+            } else if (this.array_of_unique_sorted_input_numbers[middle + 1].compareTo(x) <= 0) {
                 left = middle + 1;
             }
         }
@@ -71,11 +72,11 @@ public class DistributionFunction {
         return array_of_values_of_distribution_function;
     }
 
-    public Double distribution_function(Double x){
-        if(x.compareTo(this.array_of_unique_sorted_input_numbers[0]) < 0){
+    public Double distribution_function(Double x) {
+        if (x.compareTo(this.array_of_unique_sorted_input_numbers[0]) < 0) {
             return 0.0;
         }
-        if(x.compareTo(this.array_of_unique_sorted_input_numbers[this.array_of_unique_sorted_input_numbers.length - 1]) > 0){
+        if (x.compareTo(this.array_of_unique_sorted_input_numbers[this.array_of_unique_sorted_input_numbers.length - 1]) > 0) {
             return 1.0;
         }
         return array_of_values_of_distribution_function[find_left_bound_index(x)];
