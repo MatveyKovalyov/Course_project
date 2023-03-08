@@ -4,13 +4,15 @@ public class DistributionFunction {
     private Double[] array_of_input_numbers;
     private Map<Double, Integer> map_of_number_repetition;
     private Double[] array_of_unique_sorted_input_numbers;
-    private Double[] array_of_values_of_distribution_function;
+    private Double[] array_of_values_of_distribution_function; // sorted
+    private int length_of_array_of_values_of_distribution_function;
 
     public DistributionFunction(Double[] array_of_input_numbers) {
         init_array_of_input_numbers(array_of_input_numbers);
         init_array_of_unique_sorted_input_numbers();
         init_map_of_number_repetition();
         init_array_of_values_of_distribution_function();
+        this.length_of_array_of_values_of_distribution_function = array_of_values_of_distribution_function.length;
     }
 
     private void init_array_of_input_numbers(Double[] array_of_input_numbers) {
@@ -68,7 +70,7 @@ public class DistributionFunction {
         return middle;
     }
 
-    public Double[] getArray_of_values_of_distribution_function() {
+    public Double[] get_array_of_values_of_distribution_function() {
         return array_of_values_of_distribution_function;
     }
 
@@ -80,5 +82,9 @@ public class DistributionFunction {
             return 1.0;
         }
         return array_of_values_of_distribution_function[find_left_bound_index(x)];
+    }
+
+    public int get_length_of_array_of_values_of_distribution_function() {
+        return length_of_array_of_values_of_distribution_function;
     }
 }
