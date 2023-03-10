@@ -87,4 +87,12 @@ public class DistributionFunction {
     public int get_length_of_array_of_values_of_distribution_function() {
         return length_of_array_of_values_of_distribution_function;
     }
+
+    public Double[] get_array_of_unique_sorted_input_numbers(){
+        return array_of_unique_sorted_input_numbers;
+    }
+
+    public Map<Double, Integer> get_map_of_number_repetition(){
+        return map_of_number_repetition;
+    }
 }

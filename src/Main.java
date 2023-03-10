@@ -1,5 +1,6 @@
 import java.text.DecimalFormat;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Random;
 
 public class Main {
@@ -31,7 +32,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        int amount = 20000;
+        /*int amount = 20000;
         Double[] input_array_1 = new Double[amount];
         input_array_1 = get_random_numbers_gaussian(amount);
         BasicRandomVariable basicRandomVariable = new BasicRandomVariable(input_array_1);
@@ -41,5 +42,17 @@ public class Main {
         PlotFileOutputForDistributionFunction plotFileOutputForDistributionFunction1 =
                 new PlotFileOutputForDistributionFunction(input_array_1);
         plotFileOutputForDistributionFunction1.create_plot_file("plot2.txt", " ");
+        */
+
+        RandomArrayInit randomArrayInit = new RandomArrayInit(10000);
+        PlotFileOutputForDistributionFunction plotFileOutputForDistributionFunction2 =
+                new PlotFileOutputForDistributionFunction(randomArrayInit.get_random_array());
+     //   Arrays.stream(randomArrayInit.get_random_array()).forEach(System.out::println);
+        plotFileOutputForDistributionFunction2.create_plot_file("plot3.txt", " ");
+        //System.out.println(randomArrayInit.get_random_array().length);
+        DistributionFunction distributionFunction = new DistributionFunction(randomArrayInit.get_random_array());
+        distributionFunction.get_map_of_number_repetition().entrySet().forEach(item->{
+            System.out.println(item.getKey() + " : " + item.getValue());
+        });
     }
 }
